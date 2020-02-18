@@ -48,23 +48,31 @@ class _MaestryaPageState extends State<MaestryaPage> {
 
   Widget createListView() {
     List<Widget> childrenWidgets = [];
-
-    if (list != null) {
-      childrenWidgets = Maestrya().render(list['data']['body']['render']);
+    dynamic render;
+    bool listIsNotEmpty = (list != null);
+    if (listIsNotEmpty) {
+      render = Maestrya().render(list);
+      childrenWidgets = render['body'];
     }
 
-    return Scaffold(
-        body: new RefreshIndicator(
-            key: refreshKey,
-            onRefresh: _getData,
-            child: new ListView.builder(
-              padding: const EdgeInsets.all(20.0),
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index) {
-                return new Column(
-                  children: childrenWidgets,
-                );
-              },
-            )));
+    return listIsNotEmpty
+        ? Scaffold(
+            appBar: render['header'],
+            body: new RefreshIndicator(
+                key: refreshKey,
+                onRefresh: _getData,
+                child: new ListView.builder(
+                  padding: const EdgeInsets.all(20.0),
+                  itemCount: 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    return new Column(
+                      children: childrenWidgets,
+                    );
+                  },
+                )))
+        : Scaffold(
+            body: Center(
+            child: Text("Not Render"),
+          ));
   }
 }
