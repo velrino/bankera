@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:maestrya/maestrya.dart';
 import 'package:bankera/shared/services/maestrya.dart';
+import 'package:bankera/shared/components/loading/loading.dart';
 
 class MaestryaPage extends StatefulWidget {
+  final String path;
+
+  MaestryaPage({Key key, @required this.path});
+
   @override
-  _MaestryaPageState createState() => new _MaestryaPageState();
+  _MaestryaPageState createState() => new _MaestryaPageState(path: this.path);
 }
 
 class _MaestryaPageState extends State<MaestryaPage> {
+  final String path;
+  _MaestryaPageState({Key key, @required this.path});
+
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   var list;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -20,14 +29,18 @@ class _MaestryaPageState extends State<MaestryaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return createListView();
+    return _isLoading ? LoadingComponent() : createListView();
   }
 
   Future<Null> _getData() async {
-    final items = await MaestryaService().getPage('page_test');
+    setState(() {
+      _isLoading = true;
+    });
+    final items = await MaestryaService().getPage(this.path);
 
     setState(() {
       list = items;
+      _isLoading = false;
     });
 
     return null;
@@ -35,17 +48,12 @@ class _MaestryaPageState extends State<MaestryaPage> {
 
   Widget createListView() {
     List<Widget> childrenWidgets = [];
-    String titleScaffold = "";
 
     if (list != null) {
       childrenWidgets = Maestrya().render(list['data']['body']['render']);
-      titleScaffold = list['data']['header']['title']['text'];
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(titleScaffold),
-        ),
         body: new RefreshIndicator(
             key: refreshKey,
             onRefresh: _getData,
