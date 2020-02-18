@@ -1,4 +1,4 @@
-package com.example.bankera
+package com.velrino.bankera
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
