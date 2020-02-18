@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bankera/styles/theme.dart' as Theme;
 import 'package:bankera/utils/bubble_indication_painter.dart';
+import 'package:bankera/pages/maestrya/maestrya.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -13,7 +14,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final FocusNode myFocusNodeEmailLogin = FocusNode();
@@ -51,71 +51,68 @@ class _LoginPageState extends State<LoginPage>
           overscroll.disallowGlow();
         },
         child: SingleChildScrollView(
-              controller: _controller,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height >= 775.0
-                    ? MediaQuery.of(context).size.height
-                    : 775.0,
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colors.primary,
-                        Theme.Colors.secondary
-                      ],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 75.0),
-                      child: new Image(
-                          width: 100.0,
-                          height: 100.0,
-                          // fit: BoxFit.fill,
-                          image: new AssetImage('assets/imgs/logo.png')),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: _buildMenuBar(context),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: PageView(
-                        controller: _pageController,
-                        onPageChanged: (i) {
-                          if (i == 0) {
-                            setState(() {
-                              right = Colors.white;
-                              left = Colors.black;
-                            });
-                          } else if (i == 1) {
-                            setState(() {
-                              right = Colors.black;
-                              left = Colors.white;
-                            });
-                          }
-                        },
-                        children: <Widget>[
-                          new ConstrainedBox(
-                            constraints: const BoxConstraints.expand(),
-                            child: _buildSignIn(context),
-                          ),
-                          new ConstrainedBox(
-                            constraints: const BoxConstraints.expand(),
-                            child: _buildSignUp(context),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          controller: _controller,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height >= 775.0
+                ? MediaQuery.of(context).size.height
+                : 775.0,
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [Theme.Colors.primary, Theme.Colors.secondary],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
             ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 75.0),
+                  child: new Image(
+                      width: 100.0,
+                      height: 100.0,
+                      // fit: BoxFit.fill,
+                      image: new AssetImage('assets/imgs/logo.png')),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: _buildMenuBar(context),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: (i) {
+                      if (i == 0) {
+                        setState(() {
+                          right = Colors.white;
+                          left = Colors.black;
+                        });
+                      } else if (i == 1) {
+                        setState(() {
+                          right = Colors.black;
+                          left = Colors.white;
+                        });
+                      }
+                    },
+                    children: <Widget>[
+                      new ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: _buildSignIn(context),
+                      ),
+                      new ConstrainedBox(
+                        constraints: const BoxConstraints.expand(),
+                        child: _buildSignUp(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -148,9 +145,7 @@ class _LoginPageState extends State<LoginPage>
       content: new Text(
         value,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0),
+        style: TextStyle(color: Colors.white, fontSize: 16.0),
       ),
       backgroundColor: Colors.blue,
       duration: Duration(seconds: 3),
@@ -177,9 +172,7 @@ class _LoginPageState extends State<LoginPage>
                 onPressed: _onSignInButtonPress,
                 child: Text(
                   "User",
-                  style: TextStyle(
-                      color: left,
-                      fontSize: 16.0),
+                  style: TextStyle(color: left, fontSize: 16.0),
                 ),
               ),
             ),
@@ -191,9 +184,7 @@ class _LoginPageState extends State<LoginPage>
                 onPressed: _onSignUpButtonPress,
                 child: Text(
                   "New",
-                  style: TextStyle(
-                      color: right,
-                      fontSize: 16.0),
+                  style: TextStyle(color: right, fontSize: 16.0),
                 ),
               ),
             ),
@@ -230,9 +221,7 @@ class _LoginPageState extends State<LoginPage>
                           focusNode: myFocusNodeEmailLogin,
                           controller: loginEmailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -257,9 +246,7 @@ class _LoginPageState extends State<LoginPage>
                           focusNode: myFocusNodePasswordLogin,
                           controller: loginPasswordController,
                           obscureText: _obscureTextLogin,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -292,7 +279,8 @@ class _LoginPageState extends State<LoginPage>
                     highlightColor: Colors.transparent,
                     color: Theme.Colors.secondary,
                     splashColor: Colors.black,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
@@ -304,8 +292,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("Login button pressed")),
+                    onPressed: () => _callMaestryaPage()),
               ),
             ],
           ),
@@ -354,9 +341,7 @@ class _LoginPageState extends State<LoginPage>
                           controller: signupNameController,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -380,9 +365,7 @@ class _LoginPageState extends State<LoginPage>
                           focusNode: myFocusNodeEmail,
                           controller: signupEmailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -406,9 +389,7 @@ class _LoginPageState extends State<LoginPage>
                           focusNode: myFocusNodePassword,
                           controller: signupPasswordController,
                           obscureText: _obscureTextSignup,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black),
+                          style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -430,7 +411,7 @@ class _LoginPageState extends State<LoginPage>
                           ),
                         ),
                       ),
-                      ],
+                    ],
                   ),
                 ),
               ),
@@ -452,8 +433,7 @@ class _LoginPageState extends State<LoginPage>
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: () =>
-                        showInSnackBar("SignUp button pressed")),
+                    onPressed: () => showInSnackBar("SignUp button pressed")),
               ),
             ],
           ),
@@ -488,5 +468,12 @@ class _LoginPageState extends State<LoginPage>
     setState(() {
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
+  }
+
+  void _callMaestryaPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MaestryaPage()),
+    );
   }
 }
