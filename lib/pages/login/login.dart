@@ -58,12 +58,10 @@ class _LoginPageState extends State<LoginPage>
                 ? MediaQuery.of(context).size.height
                 : 775.0,
             decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [Theme.Colors.primary, Theme.Colors.secondary],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 1.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
+              color: Colors.transparent,
+              image: DecorationImage(
+                  image: AssetImage('assets/imgs/cover.jpeg'),
+                  fit: BoxFit.cover),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -285,7 +283,7 @@ class _LoginPageState extends State<LoginPage>
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
                       child: Text(
-                        "LOGIN",
+                        "ACESSAR",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
@@ -301,7 +299,7 @@ class _LoginPageState extends State<LoginPage>
             child: FlatButton(
                 onPressed: () {},
                 child: Text(
-                  "Forgot your password?",
+                  "Esqueceu sua senha?",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.white,
