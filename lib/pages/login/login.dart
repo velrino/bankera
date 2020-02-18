@@ -473,7 +473,8 @@ class _LoginPageState extends State<LoginPage>
   void _callMaestryaPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MaestryaPage()),
+      MaterialPageRoute(
+          builder: (context) => MaestryaPage(path: 'bankera_home')),
     );
   }
 }
