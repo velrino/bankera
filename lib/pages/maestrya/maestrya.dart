@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:maestrya/maestrya.dart';
+import 'package:bankera/shared/services/maestrya.dart';
 
 class MaestryaPage extends StatefulWidget {
   @override
@@ -25,12 +24,7 @@ class _MaestryaPageState extends State<MaestryaPage> {
   }
 
   Future<Null> _getData() async {
-    refreshKey.currentState?.show(atTop: false);
-
-    String apiUrl =
-        'https://protected-ridge-35353.herokuapp.com/api/pages/page_test';
-    http.Response response = await http.get(apiUrl);
-    final items = json.decode(response.body);
+    final items = await MaestryaService().getPage('page_test');
 
     setState(() {
       list = items;
