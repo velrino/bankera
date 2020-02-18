@@ -5,8 +5,8 @@ class Colors {
 
   const Colors();
 
-  static const Color primary = const Color(0xff045499);
-  static const Color secondary = const Color(0xff08be73);
+  static const Color primary = const Color(0xffeea849);
+  static const Color secondary = const Color(0xffec7000);
 
   static const primaryGradient = const LinearGradient(
     colors: const [primary, secondary],
