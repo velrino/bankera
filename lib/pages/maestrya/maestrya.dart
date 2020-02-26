@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:maestrya/maestrya.dart';
 import 'package:bankera/shared/services/maestrya.dart';
+import 'package:bankera/shared/services/internet.dart';
 import 'package:bankera/shared/components/loading/loading.dart';
 import 'package:bankera/data/pages.dart';
 import 'dart:convert';
@@ -59,10 +60,14 @@ class _MaestryaPageState extends State<MaestryaPage> {
     setState(() {
       _isLoading = true;
     });
-    //final items = await MaestryaService().getPage(this.path);
-    final items = pages[this.path];
+
+    bool haveInternet = await InternetService().check();
+    final items = (haveInternet)
+        ? await MaestryaService().getPage(this.path)
+        : pages[this.path];
+
     setState(() {
-      list = items;
+      list = (haveInternet) ? items['data'] : items;
       _isLoading = false;
     });
 
@@ -78,7 +83,7 @@ class _MaestryaPageState extends State<MaestryaPage> {
     bool listIsNotEmpty = (list != null);
     if (listIsNotEmpty) {
       renderHeader = Maestrya('').renderHeader(list['header']);
-      renderBody = '''${json.encode(list['body'])}''';
+      renderBody = json.encode(list['body']);
     }
 
     return listIsNotEmpty
